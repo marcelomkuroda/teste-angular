@@ -1,0 +1,134 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+
+      <div class="formulario-container">
+        <button class="btn-default btn-roxo" (click)="goToListagem()">Voltar</button>
+        <h1 class="titulo">{{titulo}}</h1>
+
+        <form class="form" [formGroup]="formProfissao" role="form" autocomplete="off">
+
+          <div class="form-group">
+            <label for="nome" class="form-control-label">Nome</label>
+            <input id="nome" type="text" formControlName="nome" class="form-control" placeholder="Digite o nome"
+              maxlength="50" />
+            <div *ngIf="salvando && getformProfissao.nome.errors && getformProfissao.nome.errors.required"
+              class="form-control-error">Insira o nome</div>
+          </div>
+
+          <div class="form-group">
+            <label for="sobrenome" class="form-control-label">Sobrenome</label>
+            <input id="sobrenome" type="text" formControlName="sobrenome" class="form-control"
+              placeholder="Digite o sobrenome" maxlength="50" />
+            <div *ngIf="salvando && getformProfissao.sobrenome.errors && getformProfissao.sobrenome.errors.required"
+              class="form-control-error">Insira o sobrenome</div>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-control-label">E-mail</label>
+            <input id="email" type="text" formControlName="email" class="form-control" placeholder="Informe o e-mail"
+              maxlength="100" />
+            <div *ngIf="salvando && getformProfissao.email.errors && getformProfissao.email.errors.required"
+              class="form-control-error">Insira o e-mail</div>
+            <div *ngIf="salvando && getformProfissao.email.errors && getformProfissao.email.errors.email"
+              class="form-control-error">E-mail inválido</div>
+          </div>
+
+          <div class="form-group">
+            <label for="sexo" class="form-control-label">Sexo</label>
+            <select id="sexo" formControlName="sexo" class="form-control" placeholder="Selecione o sexo">
+              <ng-container>
+                <option *ngFor="let item of sexos" [value]="item.id">
+                  {{ item.value }}
+                </option>
+              </ng-container>
+            </select>
+            <div *ngIf="salvando && getformProfissao.sexo.errors && getformProfissao.sexo.errors.required"
+              class="form-control-error">Selecione o sexo</div>
+          </div>
+
+          <div class="form-group">
+            <label for="data" class="form-control-label">Data</label>
+            <input id="data" type="date" formControlName="data" class="form-control" placeholder="Informe a data"
+              maxlength="10" />
+            <div *ngIf="salvando && getformProfissao.data.errors && getformProfissao.data.errors.required"
+              class="form-control-error">Insira a data</div>
+          </div>
+
+          <div class="form-group">
+            <label for="estado" class="form-control-label">Estado</label>
+            <select id="estado" formControlName="estado" class="form-control" placeholder="Selecione o estado"
+              (change)="carregarCidades($event.target.value)">
+              <ng-container>
+                <option *ngFor="let item of estados" [value]="item.nome">
+                  {{ item.nome }}
+                </option>
+              </ng-container>
+            </select>
+            <div *ngIf="salvando && getformProfissao.estado.errors && getformProfissao.estado.errors.required"
+              class="form-control-error">Selecione o estado</div>
+          </div>
+
+          <div class="form-group">
+            <label for="cidade" class="form-control-label">Cidade</label>
+            <select id="cidade" formControlName="cidade" class="form-control" placeholder="Selecione o cidade">
+              <ng-container>
+                <option *ngFor="let item of cidades" [value]="item">
+                  {{ item }}
+                </option>
+              </ng-container>
+            </select>
+            <div *ngIf="salvando && getformProfissao.cidade.errors && getformProfissao.cidade.errors.required"
+              class="form-control-error">Selecione o cidade</div>
+          </div>
+
+          <div class="form-group">
+            <label for="areaFormacao" class="form-control-label">Área de Formação</label>
+            <input id="areaFormacao" type="text" formControlName="areaFormacao" class="form-control"
+              placeholder="Informe a área de formação" maxlength="50" />
+            <div
+              *ngIf="salvando && getformProfissao.areaFormacao.errors && getformProfissao.areaFormacao.errors.required"
+              class="form-control-error">Insira a área de formação</div>
+          </div>
+
+          <div class="form-group">
+            <label for="profissao" class="form-control-label">Profissão</label>
+            <select id="profissao" formControlName="profissao" class="form-control" placeholder="Selecione a profissão">
+              <ng-container>
+                <option *ngFor="let item of profissoes" [value]="item">
+                  {{ item }}
+                </option>
+              </ng-container>
+            </select>
+            <div *ngIf="salvando && getformProfissao.profissao.errors && getformProfissao.profissao.errors.required"
+              class="form-control-error">Selecione a profissão</div>
+          </div>
+
+          <div class="form-buttons">
+            <button class="btn-default btn-branco" (click)="goToListagem()">
+              Cancelar
+            </button>
+            <button class="btn-default btn-roxo" (click)="salvar()">
+              Salvar
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="popup" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h4>{{tituloModal}}</h4>
+      </div>
+      <div class="form-group modal-footer">
+        <button type="button" class="btn-default btn-roxo" data-dismiss="modal" (click)="goToListagem()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
